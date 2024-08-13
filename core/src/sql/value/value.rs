@@ -254,6 +254,12 @@ impl From<Range> for Value {
 	}
 }
 
+impl From<Box<Range>> for Value {
+	fn from(v: Box<Range>) -> Self {
+		Value::Range(v)
+	}
+}
+
 impl From<Edges> for Value {
 	fn from(v: Edges) -> Self {
 		Value::Edges(Box::new(v))
@@ -554,6 +560,7 @@ impl From<Id> for Value {
 				Gen::Ulid => Id::ulid().into(),
 				Gen::Uuid => Id::uuid().into(),
 			},
+			Id::Range(v) => v.into(),
 		}
 	}
 }
